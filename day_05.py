@@ -11,93 +11,30 @@ star2 = 0
 ids = set()
 
 for seat in seats:
-  step1 = seat[0]
-  step2 = seat[1]
-  step3 = seat[2]
-  step4 = seat[3]
-  step5 = seat[4]
-  step6 = seat[5]
-  step7 = seat[6]
-  col1 = seat[7]
-  col2 = seat[8]
-  col3 = seat[9]
+  rows_range = [0, 127]
+  for letter in seat[0:7]:
+    if letter == "F":
+      rows_range[1] = rows_range[1] - (rows_range[1] + 1 - rows_range[0])/2
+    elif letter == "B":
+      rows_range[0] = rows_range[0] + (rows_range[1] + 1 - rows_range[0])/2
 
-  r = [i for i in range(128)]
-  
-  if(step1 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step1 == "B"):
-    c = len(r)//2
-    r = r[c:]
-  
-  if(step2 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step2 == "B"):
-    c = len(r)//2
-    r = r[c:]
+  cols_range = [0, 7]
+  for letter in seat[7:10]:
+    if letter == "L":
+      cols_range[1] = cols_range[1] - (cols_range[1] + 1 - cols_range[0])/2
+    elif letter == "R":
+      cols_range[0] = cols_range[0] + (cols_range[1] + 1 - cols_range[0])/2
 
-  if(step3 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step3 == "B"):
-    c = len(r)//2
-    r = r[c:]
-
-  if(step4 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step4 == "B"):
-    c = len(r)//2
-    r = r[c:]
-
-  if(step5 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step5 == "B"):
-    c = len(r)//2
-    r = r[c:]
-
-  if(step6 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step6 == "B"):
-    c = len(r)//2
-    r = r[c:]
-
-  if(step7 == "F"):
-    c = len(r)//2
-    r = r[:c]
-  elif(step7 == "B"):
-    c = len(r)//2
-    r = r[c:]
-
-  cols = [i for i in range(8)]
-
-  if(col1 == "L"):
-    c = len(cols)//2
-    cols = cols[:c]
-  elif(col1 == "R"):
-    c = len(cols)//2
-    cols = cols[c:]
-
-  if(col2 == "L"):
-    c = len(cols)//2
-    cols = cols[:c]
-  elif(col2 == "R"):
-    c = len(cols)//2
-    rcols = cols[c:]
-
-  if(col3 == "L"):
-    c = len(cols)//2
-    cols = cols[:c]
-  elif(col3 == "R"):
-    c = len(cols)//2
-    cols = cols[c:]
-  
-  row = int(r[0])
-  col = int(cols[0])
-  ids.add(row * 8 + col)
+  row = int(rows_range[1])
+  column = int(cols_range[1])
+  ids.add(row * 8 + column)
+  print(ids)
 
 print(f'star1: {max(ids)}')
+
+for missing_seat in range(128*8):
+  if (missing_seat not in ids
+      and missing_seat - 1 in ids
+      and missing_seat + 1 in ids
+    ):
+    print(f'star2: {missing_seat}')
