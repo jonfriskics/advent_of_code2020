@@ -28,7 +28,6 @@ for seat in seats:
   row = int(rows_range[1])
   column = int(cols_range[1])
   ids.add(row * 8 + column)
-  print(ids)
 
 print(f'star1: {max(ids)}')
 
