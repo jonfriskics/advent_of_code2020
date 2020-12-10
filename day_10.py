@@ -30,7 +30,32 @@ for i in joltages:
       diffs_of_three.append(i)
   current_voltage = i
 
+arrangements = defaultdict(int, {0:1})
 
+joltages.insert(0, 0)
+joltages.append(max(joltages) + charging_outlet_rating)
 
+n = 0
+for i in joltages:
+  current_voltage = i
+  for j in range(n-3,n):
+    if(current_voltage - joltages[j] == 1):
+      print(
+          f'n {n} \t j {j} \t cv {current_voltage} \t j[j] {joltages[j]} \t diff {current_voltage - joltages[j]} \t arrlen {len(arrangements.values())} \t arr[j] {arrangements[j]} \t *******')
+      arrangements[n] += arrangements[j]
+    elif(current_voltage - joltages[j] == 2):
+      print(
+          f'n {n} \t j {j} \t cv {current_voltage} \t j[j] {joltages[j]} \t diff {current_voltage - joltages[j]} \t arrlen {len(arrangements.values())} \t arr[j] {arrangements[j]} \t *******')
+      arrangements[n] += arrangements[j]
+    elif(current_voltage - joltages[j] == 3):
+      print(
+          f'n {n} \t j {j} \t cv {current_voltage} \t j[j] {joltages[j]} \t diff {current_voltage - joltages[j]} \t arrlen {len(arrangements.values())} \t arr[j] {arrangements[j]} \t *******')
+      arrangements[n] += arrangements[j]
+    else:
+      print(
+          f'n {n} \t j {j} \t cv {current_voltage} \t j[j] {joltages[j]} \t diff {current_voltage - joltages[j]} \t arrlen {len(arrangements.values())} \t arr[j] {arrangements[j]}')
 
-print(len(diffs_of_one), len(diffs_of_two), len(diffs_of_three)+1)
+  n+= 1
+
+print(f'star1: {len(diffs_of_one) * (len(diffs_of_three)+1)}')
+print(f'star2: {max(arrangements.values())}')
